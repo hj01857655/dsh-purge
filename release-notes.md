@@ -1,3 +1,35 @@
+# 1.2.1
+
+> 在 1.2.0 基础上补齐技能库覆盖并修正技能文档错误。
+
+## 中文
+
+- 版本 **1.2.1**。`skills/redteam` 从 23 个补到 **27 个**：新增 4 个能力域技能，修正 5 处既有文档的调用错误。
+- **新增技能**（按工具族反推，参数与 `tools.js` 注册表逐字核对）：
+  - `evidence-discipline`：证据纪律——四档置信度（claimed/observed/derived/inferred）、`ev_id` 语义哈希防篡改、未解决问题登记与闭环，对应 1.2.0 新增的 evidence-ledger 7 个工具。
+  - `poc-management`：POC/EXP 知识库——打 Nday 先查两层（知识库 + 本机 nuclei 模板库）、回填三件套、`verified` 只认实测，对应 `redteam_poc_*` 6 个工具。
+  - `scoring-reporting`：得分与汇报——25 项规则 + G1–G8、三条红线（账号必实测登录 / 自建账号不计分 / capped 是停止信号）、多档条目用 `points` 指定档位，对应 `score_list/hit/point_save` + `attack_chain` + `score_report`。
+  - `screenshot-evidence`：截图取证——`path`/`data_base64` 二选一、批量得分点每个最多 3 张代表图，对应 `shot_add/list/delete`。
+- **修正技能文档 5 处调用错误**：
+  - `passive-recon.md`：`redteam_asset_upsert` → `redteam_asset_add`（工具不存在，调用必失败）。
+  - `chisel-tunnel.md` / `frp-tunnel.md`：`stage_code=boundary-logical` → `boundary`（非法值会被忽略，步骤不落任何阶段）。
+  - `suo5-tunnel.md` / `webshell-toolkit.md`：补 `stage_code`（`stage` 只是老数据兜底字段，缺 `stage_code` 步骤计数不落阶段）。
+- **`redteam-setup.md` 清除旧包名与过时数字**：`dsh-redteam-mode` → `dsh-purge`；"9 份攻击链技能不随包分发"更正为只说 setup.sh/二进制不分发、技能 27 个全部随包自带；"14 个侦察向技能"更正为 27 个。onboarding 字段名 / 环境变量名 / `.setup-complete` 路径 / 降级口径均与 `redteam_preflight` 实现对证一致。
+- 全部 27 个技能经 `checkSkill` 复核 available，4 个新文档里的 `redteam_*` 工具名全部与注册表对得上（含修正 evidence-discipline.md 一处 `redteam_evidence_count` 笔误）。
+
+## English
+
+- **1.2.1**. `skills/redteam` grows from 23 to **27** documents: four new capability-domain skills and five call-signature fixes in existing ones.
+- **New skills** (derived from tool families; parameter names verified against the `tools.js` registry):
+  - `evidence-discipline`: evidence discipline — four confidence tiers, `ev_id` semantic-hash tamper evidence, residual-unknown tracking; pairs with the evidence ledger added in 1.2.0.
+  - `poc-management`: the POC/EXP knowledge base — check two layers before attacking Nday, the three-field backfill, `verified` only on real targets.
+  - `scoring-reporting`: scoring and reporting — 25-point rules + G1–G8, three red lines, multi-tier entries select the tier via `points`.
+  - `screenshot-evidence`: shot evidence — `path`/`data_base64`, up to three representative shots per bulk point.
+- **Five call-signature fixes** in existing skill docs: a nonexistent tool name (`redteam_asset_upsert`), two illegal `stage_code` values, and two missing `stage_code` fields.
+- `redteam-setup.md` refreshed: stale package name and counts corrected; onboarding fields re-verified against the `redteam_preflight` implementation.
+- All 27 skills re-checked available via `checkSkill`; every `redteam_*` name in the four new docs matches the registry.
+
+---
 # 1.2.0
 
 > 本分支（`hj01857655/dsh-purge`，fork 自 `sp1128`）在 1.1.73 基础上做的改动。
