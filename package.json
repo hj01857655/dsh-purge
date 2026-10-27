@@ -36,7 +36,8 @@
   ],
   "scripts": {
     "embed-prompt": "node scripts/embed-default-prompt.mjs",
-    "build:client": "node scripts/build-client.mjs"
+    "build:client": "node scripts/build-client.mjs",
+    "postinstall": "node scripts/ensure-profile-bundle.mjs"
   },
   "license": "MIT",
   "keywords": [
@@ -56,7 +57,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YuJunZhiXue/dsh-purge.git"
+    "url": "git+https://github.com/hj01857655/dsh-purge.git"
   },
   "homepage": "https://github.com/YuJunZhiXue/dsh-purge#readme",
   "bugs": {
@@ -78,9 +79,9 @@
     },
     "install": {
       "preferred": "tarball",
-      "tarball": "https://github.com/YuJunZhiXue/dsh-purge/archive/refs/heads/master.tar.gz",
-      "zip": "https://github.com/YuJunZhiXue/dsh-purge/archive/refs/heads/master.zip",
-      "git": "https://github.com/YuJunZhiXue/dsh-purge.git"
+      "tarball": "https://github.com/hj01857655/dsh-purge/archive/refs/heads/master.tar.gz",
+      "zip": "https://github.com/hj01857655/dsh-purge/archive/refs/heads/master.zip",
+      "git": "https://github.com/hj01857655/dsh-purge.git"
     }
   },
   "publishConfig": {
