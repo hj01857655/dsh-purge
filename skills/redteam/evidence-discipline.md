@@ -94,7 +94,7 @@ ev_id = "ev_" + sha256(规范化语义)
 
 ## 审计数字
 
-- `redteam_evidence_count(engagement_id)`：`countUnverified` —— claimed/inferred 总条数
+- `redteam_unverified_count（返回口径：countUnresolvedClaims）`：`countUnverified` —— claimed/inferred 总条数
 - `redteam_unverified_count`：`countUnresolvedClaims` —— 还有多少 claimed/inferred **没有任何 observed 支撑**（0 = 所有子智能体报告都亲自核实过）
 
 返回 >0 时，汇报必须提醒未核实条数。
