@@ -1,3 +1,65 @@
+# 1.2.0
+
+> 本分支（`hj01857655/dsh-purge`，fork 自 `sp1128`）在 1.1.73 基础上做的改动。
+> 与上游 `YuJunZhiXue/dsh-purge` 的 1.1.74–1.1.79 不是同一条线，改动内容不同。
+
+## 中文
+
+- 版本 **1.2.0**。保留 `skills/redteam/` 全部 23 个技能文档（上游 1.1.73 起已删除）。
+
+### 修复
+
+- **`hostFs` 缺 `readSync`/`closeSync`**：`extract-asar.js` 的 `HOST_SYNC` 白名单有 `openSync` 但没放行按 fd 操作的方法，`core.js` 的 `isTextShim` 在 `fs.readSync()` 处抛 `TypeError` → `catch` 返回 false → **所有 shim 状态被误判成 `binary`**，界面永远显示"未打补丁"。补 `HOST_FD_SYNC` 白名单（`readSync`/`writeSync`/`closeSync`/`fstatSync`/`fsyncSync`），直接落 `diskFs()`。
+- **`shimFileStatus` 只认一种标记**：`core.js` 写的是 `dsh-purge shim`，`desktop.js` 写的是 `dsh-purge cli entry`。原来只查前者，CLI 入口的 shim 被当成 `original` 反复重写。两种都认。
+- **原子写吃权限**（上游 #155 / #157 同类问题）：`atomicWriteSync` / `atomicWriteFile` 写 tmp（默认 0644）再 rename，会把原文件权限覆盖掉。官方 CLI 的 `dsh` 原本 0755，写一次变 0644 → `Permission denied`。写前 `existingMode()` 记下，tmp 与目标各 `restoreMode()` 一次。
+- **停用立即清 `selectedDefault`**（上游 #108 同类问题）：热重载是「先 dispose 再 apply」，原来 dispose 时立刻把 `agent-preset-registry.selectedDefault` 从 `redteam` 改回 `standard`，紧接着 apply 进来——用户的红队默认被冲掉，严重时新建会话失败。改 `scheduleClearOwnedSelectedDefault`（延迟 800ms），apply 时 `cancelClearOwnedSelectedDefault`。
+- **靶场判定误放行 5 类地址**：`isSkippedV4` 用黑名单式判断，`169.254.169.254`（云元数据 SSRF）、`0.0.0.0`、`224/4` 组播、`255.255.255.255` 广播、`240/4` 保留段全部被当成"自己的网络"。改白名单，只认 RFC1918 + 回环。
+- **`::ffff:a.b.c.d` 被误拦**：`isOwnNetwork` 没展开 IPv4-mapped IPv6，`::ffff:192.168.1.1` 这种合法私网写法被当成外部目标。拆回 IPv4 再判。
+- **主机采集三处**：IPv4 会被 IPv6 正则重复匹配（加区间检查）、`::ffff:` 映射地址未被采集、`localhost` 未被识别。
+- **ChatML 标记残留**：`rewritePromptAssembly` 处理非插件段落时只做 `stripHarnessPersona`（身份文案替换），没清宿主塞进 `section.text` 的对话定界符。`<|im_start|>system:` / `<|im_end|>` / `<|project_instructions>` 留在最终提示词里会被模型当成消息边界，导致后面的注入段被误判成新的 system 消息。新增 `stripChatmlTags()`，在原处多套一层。
+
+### 新增
+
+- **红队证据账本**（`lib/redteam/evidence-ledger.mjs`，507 行）：解决子智能体谎报问题。四档置信度 `claimed`（口头报告，必须核实）/ `observed`（工具回显证实）/ `derived`（从 observed 推理）/ `inferred`（推测，必须标注）。`ev_id = "ev_" + sha256(规范化语义)`，键按码点排序确保语义相同哈希必同，改一字哈希就变，落库后可核对"子智能体说的"与"库里记的"是否一致。`residual_unknown` 表记未打完、证据不足的问题（5 种状态），避免假装打完了。新增 7 个工具：`redteam_evidence_record` / `verify` / `upgrade` / `list`、`redteam_unknown_record` / `resolve` / `list`。
+- **Apply / 还原 / 卸载进度**（`lib/apply-progress.js`，66 行）：内存状态，给 `/dsh-purge/status` 轮询用，不落盘也不进 `gatherState`。阶段序列 `home → locate → override → patch → shim → flash → done/restart`，revert / uninstall 各有自己的序列。三端点接线，所有 catch 分支都 `endApply({ error })`，不留下永远 active 的状态。
+- **`postinstall` 自动补 profile 配置**（`lib/profile-insert.js` + `scripts/ensure-profile-bundle.mjs`）：`pnpm add` / `dsh plugin add` 装完不会写 `dsh.profile.bundles`，也不会往用户层 `cordis.patch.yml` 写本体 insert，导致插件"装了但不加载"。补三笔：`bundles`、insert 块、pnpm 的 `allowBuilds`。
+  - insert 块**不硬编码**：本包 `cordis.patch.yml` 的 insert 带 4 个子行（`dsh-purge` + `redteam` + `store` + `ui`）和 20 项 config；上游那份精简模板只有主插件一行、4 项 config，照搬会让用户装完丢 `autoRetry` / `postPrompt` / 演练台那三行。改为运行时从包内提取真实块（`extractInsertBlock`），取不到才回落。
+  - 三种情形：装进 profile → 补这个 profile；在插件仓库里 `pnpm install` → 跳过；找不到 profile 但有 `DSH_HOME` → 扫所有已装过本插件的 profile 补一遍（对应上游 #167，升级覆盖 overlay 后把按钮找回来）。
+  - 失败不吵：任何异常只打一行警告并 `exit 0`，补配置失败不该让 `pnpm add` 整体失败。
+
+### 变更
+
+- `dsh.install` 的三个 URL 从上游仓库改指本 fork（`hj01857655/dsh-purge`），否则一键安装会把用户引到上游、装到的不是本分支版本。
+
+## English
+
+- **1.2.0**. Keeps all 23 `skills/redteam/` documents (upstream dropped them starting at 1.1.73).
+
+### Fixed
+
+- **`hostFs` missing `readSync`/`closeSync`**: `HOST_SYNC` allowlist in `extract-asar.js` had `openSync` but not the fd-based methods. `isTextShim` in `core.js` threw `TypeError` at `fs.readSync()` → `catch` returned false → **every shim was judged `binary`**, so the UI never showed "patched". Added `HOST_FD_SYNC`.
+- **`shimFileStatus` recognized only one marker**: `core.js` writes `dsh-purge shim`, `desktop.js` writes `dsh-purge cli entry`. Only the former was checked, so CLI-entry shims were treated as `original` and rewritten repeatedly.
+- **Atomic write ate permissions** (upstream #155 / #157): `atomicWriteSync` writes a tmp file (0644 by default) then renames, clobbering the original mode. Official `dsh` is 0755; one write turned it into 0644 → `Permission denied`. Now records `existingMode()` before and restores on both tmp and target.
+- **Disable cleared `selectedDefault` immediately** (upstream #108): hot reload is dispose-then-apply. Clearing the default during dispose wiped the user's redteam default, sometimes breaking new sessions. Delayed 800ms and cancelled on apply.
+- **Lab gate allowed 5 address classes**: `isSkippedV4` used a blacklist, so `169.254.169.254` (cloud metadata SSRF), `0.0.0.0`, `224/4` multicast, `255.255.255.255` broadcast, and `240/4` reserved all passed as "own network". Switched to an allowlist: RFC1918 + loopback only.
+- **`::ffff:a.b.c.d` rejected**: `isOwnNetwork` did not unwrap IPv4-mapped IPv6, so `::ffff:192.168.1.1` was treated as an external target. Now unwrapped before judging.
+- **Host collection**: IPv4 double-matched by the IPv6 regex, `::ffff:` addresses not collected, `localhost` not recognized.
+- **ChatML tags left behind**: `rewritePromptAssembly` only ran `stripHarnessPersona` on non-plugin sections and did not strip conversation delimiters the host puts into `section.text`. `<|im_start|>system:` / `<|im_end|>` / `<|project_instructions>` leaking into the final prompt are read as message boundaries, making later inject sections look like new system messages. Added `stripChatmlTags()`.
+
+### Added
+
+- **Red-team evidence ledger** (`lib/redteam/evidence-ledger.mjs`, 507 lines): counters subagent over-claiming. Four confidence tiers: `claimed` (verbal report, must verify) / `observed` (tool output proves it) / `derived` (inferred from observed) / `inferred` (guess, must be labeled). `ev_id = "ev_" + sha256(canonical semantics)`; keys are code-point sorted so identical semantics always hash the same and any edit changes the hash, letting you check "what the subagent said" against "what the ledger recorded". A `residual_unknown` table tracks unfinished, under-evidenced questions (5 states) so work is not faked as complete. Seven new tools.
+- **Apply / revert / uninstall progress** (`lib/apply-progress.js`, 66 lines): in-memory state for `/dsh-purge/status` polling; never written to disk, never enters `gatherState`. Stage sequences per job kind, wired into three endpoints, with `endApply({ error })` on every catch path.
+- **`postinstall` profile repair** (`lib/profile-insert.js` + `scripts/ensure-profile-bundle.mjs`): `pnpm add` / `dsh plugin add` never write `dsh.profile.bundles` nor the user-layer `cordis.patch.yml` insert, so the plugin installs but does not load. Repairs three things: `bundles`, the insert block, and pnpm `allowBuilds`.
+  - The insert block is **not hardcoded**: this package's insert carries 4 sub-rows and 20 config keys, while the upstream compact template has one row and 4 keys — copying it would drop `autoRetry` / `postPrompt` / the three drill rows. Extracted from the packaged `cordis.patch.yml` at runtime, with a fallback.
+  - Three cases: installed into a profile → repair that profile; `pnpm install` inside the plugin repo → skip; no profile found but `DSH_HOME` set → scan every profile that owns the plugin (upstream #167: restore after an upgrade overwrites the overlay).
+  - Failures are quiet: any error prints one warning and exits 0. A repair failure must not fail `pnpm add`.
+
+### Changed
+
+- `dsh.install` URLs now point at this fork (`hj01857655/dsh-purge`) instead of upstream, so one-click install does not fetch the wrong branch.
+
+---
 # 1.1.73
 
 ## 中文
