@@ -15,18 +15,19 @@ enabled: true
 
 **核心原则**：**一次性把话说完，一次要齐**。不要挤牙膏式反复找用户要东西——那是这套引导存在的唯一理由。
 
-## 一、先确认你有没有"工具箱"（npm 版默认没有）
+## 一、先确认你有没有"工具箱"（本包不分发，默认没有）
 
-npm 版 `dsh-redteam-mode` **不随包分发工具安装脚本与 9 份攻击链技能**（隧道 / 凭据 /
-WebShell / 反弹 Shell / 横向移动 / 未授权利用）。原因：npm 的发布期自动审查会把
-"包在安装后自动下载渗透二进制"判定为恶意行为特征，整包会被 Blocked。
+本插件 `dsh-purge` **不随包分发工具安装脚本**（setup.sh 与渗透二进制都不在包里）。原因：npm 的发布期自动审查会把
+"包在安装后自动下载渗透二进制"判定为恶意行为特征，整包会被 Blocked。技能文档（含隧道 / 凭据 /
+WebShell / 反弹 Shell / 横向移动 / 未授权利用等全部攻击链技能）**都随包自带**。
 
-- **有** `$DSH_HOME/redteam/setup.sh`（自行取过工具箱、或非 npm 安装）→ 按下面第一、二节走；
-- **没有**（`redteam_preflight` 返回里 `onboarding.setup_script.exists=false`）→ 先去项目
-  GitHub Release 下载 `dsh-redteam-mode-<版本>-toolkit.tar.gz`，解压后按其中 README
-  **由用户自己执行**，再到第三节手动配 `FOFA_KEY` 与 VPS；
-- **都不要**也行：只用本包自带的 14 个侦察/检测向技能（`fofa-recon` / `active-scan` /
-  `nuclei-scan` / `web-fingerprint` / `dir-bruteforce` 等）也能开工，只是拿不到需要落地的成果。
+- **有** `$DSH_HOME/redteam/setup.sh`（自行取过工具箱、或从 GitHub Release 手动装过）→ 按下面第一、二节走；
+- **没有**（`redteam_preflight` 返回里 `onboarding.setup_script.exists=false`，`dsh-purge` 默认就是这种）→
+  Windows 到演练台「环境适配」页手填工具路径与 FOFA/VPS；Linux 可参考项目 GitHub 上的工具清单
+  **由用户自己**装齐（nmap / nuclei / fscan / frp / chisel / suo5 等），再到第二节配 `FOFA_KEY` 与 VPS；
+- **都不要**也行：本包 27 个技能里侦察/检测/落库向的（`passive-recon` / `fofa-recon` / `active-scan` /
+  `nuclei-scan` / `web-fingerprint` / `dir-bruteforce` / `poc-management` / `scoring-reporting` 等）也能开工，
+  只是拿不到需要落地的成果（反弹 Shell / 隧道 / WebShell 交付）。
 
 > **红线**：本插件**不替用户下载或安装任何安全工具**。需要什么，说清获取位置，由用户自己取、自己执行。
 
@@ -72,7 +73,7 @@ ssh -i $DSH_HOME/redteam/toolkit/vps/id_rsa -o BatchMode=yes <user>@<ip> 'echo o
 ```
 
 > 工具二进制与 nuclei 模板库的体检由工具箱里的 `redteam-setup.sh --check` 负责
-> （npm 版不含该脚本，见第一节）。
+> （本包不分发该脚本，见第一节）。
 ## 四、最后一步：写完成标记并复核
 
 配置补齐后，写完成标记（有工具箱脚本时脚本 `--yes` 会自动写；没有就手动写）：
