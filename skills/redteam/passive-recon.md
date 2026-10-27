@@ -16,6 +16,6 @@ enabled: true
 - 公开端口测绘数据（Shodan/Censys/FOFA 等，需授权 API）
 
 ## 落库要求
-每条发现调用 redteam_asset_upsert，provenance 固定为 `passive`，tool 记录具体数据源。
+每条发现调用 redteam_asset_add，provenance 固定为 `passive`，tool 记录具体数据源。
 
 
