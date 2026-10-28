@@ -40,7 +40,7 @@
     "postinstall": "node scripts/ensure-profile-bundle.mjs",
     "test": "node --test"
   },
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "keywords": [
     "dsh",
     "dsh-plugin",
@@ -60,10 +60,14 @@
     "type": "git",
     "url": "git+https://github.com/hj01857655/dsh-purge.git"
   },
-  "homepage": "https://github.com/YuJunZhiXue/dsh-purge#readme",
+  "homepage": "https://github.com/hj01857655/dsh-purge#readme",
   "bugs": {
-    "url": "https://github.com/YuJunZhiXue/dsh-purge/issues"
+    "url": "https://github.com/hj01857655/dsh-purge/issues"
   },
+  "author": "YuJunZhiXue",
+  "contributors": [
+    "hj01857655"
+  ],
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"

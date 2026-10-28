@@ -4,15 +4,15 @@
 
 <h1 align="center">⚔️ DeepSeek Harness 网络安全红队工具（dsh-purge）</h1>
 
-<p align="center"><strong>Version 1.1.71</strong></p>
+<p align="center"><strong>Version 1.2.2</strong></p>
 
 <p align="center">
   <em>DeepSeek Harness 破甲：让所有模型都能破甲，不同模型可换不同提示词；默认提示词面向国模「小码酱」。Jailbreak for every model — swap prompts per model. 求 Star 收藏 ⭐ 如要二开，请查看署名要求部分</em>
 </p>
 
 <p align="center">
-  <a href="https://github.com/YuJunZhiXue/dsh-purge/stargazers"><img src="https://img.shields.io/github/stars/YuJunZhiXue/dsh-purge?logo=github&label=Stars" alt="GitHub stars"></a>
-  <a href="https://github.com/YuJunZhiXue/dsh-purge/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Commercial-c45c26?style=flat" alt="Commercial license"></a>
+  <a href="https://github.com/hj01857655/dsh-purge/stargazers"><img src="https://img.shields.io/github/stars/hj01857655/dsh-purge?logo=github&label=Stars" alt="GitHub stars"></a>
+  <a href="https://github.com/hj01857655/dsh-purge/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Commercial-c45c26?style=flat" alt="Commercial license"></a>
   <a href="https://awesome-dsh-plugin.com"><img src="https://awesome-dsh-plugin.com/badge.svg" alt="awesome · DSH plugin"></a>
   <a href="https://deepseek.stream/plugins/dsh-purge"><img src="https://img.shields.io/badge/Hub-dsh--purge-1a73e8" alt="DeepSeek Harness Hub"></a>
   <a href="https://www.deepseek.com/harness/"><img src="https://img.shields.io/badge/dsh-0.2.0--rc.2%20%2F%200.2.1--rc.2-blue" alt="DSH"></a>
@@ -29,15 +29,11 @@
   <a href="README.md"><strong>中文</strong></a> · <a href="README.en.md">English</a>
 </p>
 
-> 我直说。
->
-> 我被裁了。现在彻底没工作，也没有稳定收入。这个仓库一直是我业余在写。后面为了吃饭，我可能得去跑外卖，不一定还能天天改这个。
->
-> **从今天起到 2026 年 10 月 26 日，我征集七天。** 想留、想骂、想投广告、想赞助，写到 [Issue #130](https://github.com/YuJunZhiXue/dsh-purge/issues/130)。我会看。不保证每条都回。
->
-> **10 月 27 日起，我把这个仓库关上。** GitHub 上我不再发新版本。后面的包我只发在这个频道：[t.me/LLM_PoJia/271](https://t.me/LLM_PoJia/271)。你们手里已经下过的旧版本还能用。协议我也改了，现在是商业许可，下面有写。
+> **这里是 [hj01857655/dsh-purge](https://github.com/hj01857655/dsh-purge) —— [YuJunZhiXue/dsh-purge](https://github.com/YuJunZhiXue/dsh-purge) 的延续维护分支。** 原作者从 2026 年 10 月 27 日起不再在 GitHub 发新版；本分支继续修、继续发版。**许可与署名沿用原作者条款**（见 [LICENSE](./LICENSE) 与 [署名要求](#署名要求)），本分支不改动授权；商业授权仍归原作者，联系方式见下方。
 
-> **官方 Web 和官方桌面端都支持。** 官方 `dsh web` 用 profile `web`；官方桌面 EXE（DeepSeek Harness **0.2.0-rc.2 / 0.2.1-rc.2**）用 profile `desktop`。两边分开安装、分开点「应用」。当前版本只适配 dsh 0.2；更早的 dsh 用对应的老版本插件。社区桌面端不维护。
+> **安装地址用本分支，不要再用原仓库归档** —— 原仓库 `master` 已停在 1.1.81，本分支的补丁只在下面的地址发布。
+
+> **官方 Web 和官方桌面端都支持。** 官方 `dsh web` 用 profile `web`；官方桌面 EXE（DeepSeek Harness **0.2.0-rc.2 / 0.2.1-rc.2**）用 profile `desktop`。两边分开安装、分开点「应用」。当前版本只适配 dsh 0.2；更早的 dsh 用对应的老版本插件。社区桌面端（**DSH NEXT** / **DS Bot** / **DeepSeek Bot**）按桌面宿主识别，但不单独适配测试。
 >
 > 写进 profile 还不会改宿主。点会话标题旁的 **dsh-purge** → **清洗** → **应用**。成功会自动重启；补丁没打完不重启。重启后新开一轮对话，注入才进当前会话。
 >
@@ -66,7 +62,7 @@
 
 ## ☕ 赞助
 
-这个项目要是帮到你了，欢迎打赏。我是讨口子，施舍点~
+这个项目要是帮到你了，欢迎打赏原作者。钱包地址是他本人挂的，本分支不代收。
 
 
 | 资产          | 地址                                             |
@@ -82,25 +78,23 @@
 
 ## 广告位
 
-这个 README 一直有人看。我现在开放一点广告位，钱用来贴补我自己维护。
+这个 README 一直有人看。原作者在这里开放一点广告位，钱用来贴补他的维护。
 
 | 位置 | 状态 |
 | --- | --- |
 | 本页赞助区上方（文字链 + 一句介绍，或一张小图） | **空缺，可定** |
 
-名额少。谈妥了我再挂上去。灰产、盗版、冒充我这个仓库、纯引流盘，我不接。
+名额少，谈妥了原作者再挂上去。灰产、盗版、冒充这个仓库、纯引流盘，他不接。
 
-要合作发邮件 [a2269198325@163.com](mailto:a2269198325@163.com)，或 GitHub [@YuJunZhiXue](https://github.com/YuJunZhiXue) 私信。标题写「dsh-purge 广告位」。
-
-这七天也是最后一轮公开征集。我想说的话写在这里：[关于此项目的一些表达！！！征集帖 #130](https://github.com/YuJunZhiXue/dsh-purge/issues/130)。截止 **2026 年 10 月 26 日**。过了这天我闭源，新版本只走 [频道](https://t.me/LLM_PoJia/271)。
+要合作发邮件 [a2269198325@163.com](mailto:a2269198325@163.com)，或 GitHub [@YuJunZhiXue](https://github.com/YuJunZhiXue) 私信。标题写「dsh-purge 广告位」。赞助与广告位收益归原作者，本分支不代收。
 
 ---
 
 ## 介绍
 
-这是我写的插件。装在你本机官方 [DeepSeek Harness](https://www.deepseek.com/harness/) 上，用来做网络安全红队评测。官方 **Web**（`dsh web`）和官方 **桌面端**（EXE）我都支持，两边你要分开装、分开点「应用」。
+这个插件延续原作者的实现，本分支继续维护。装在你本机官方 [DeepSeek Harness](https://www.deepseek.com/harness/) 上，用来做网络安全红队评测。官方 **Web**（`dsh web`）和官方 **桌面端**（EXE）都支持，两边你要分开装、分开点「应用」。
 
-Harness 不只是把问题交给模型。它还会在运行时改提示词、审批门、沙箱和会话格式。只看「模型答不答」，会把宿主拦截误当成模型拒绝。我这个插件在你自己的安装里把这两层分开，用来做受控评测，也用来看默认策略该不该收紧。
+Harness 不只是把问题交给模型。它还会在运行时改提示词、审批门、沙箱和会话格式。只看「模型答不答」，会把宿主拦截误当成模型拒绝。dsh-purge 在你自己的安装里把这两层分开，用来做受控评测，也用来看默认策略该不该收紧。
 
 
 | 你会用到             | 它做什么                                            |
@@ -114,40 +108,42 @@ Harness 不只是把问题交给模型。它还会在运行时改提示词、审
 
 不写死盘符。按 `$DSH_HOME`、dsh 启动器旁边的 `.dsh`，再退回 `~/.dsh`。不改 Harness 源码仓库，在 **dsh-purge** 的「清洗」里点「应用」才写入。身份来自插件里的加密提示词，也就是提示词框默认显示的那一份。不读取宿主磁盘上的提示词文件。
 
-我这个插件只动你本机已经装好的官方 `@deepseek-ai` 包和本机配置。它不是公网扫描器，也不是打别人站点的套件。仓库里没有木马，也没有对外攻击载荷。
+这个插件只动你本机已经装好的官方 `@deepseek-ai` 包和本机配置。它不是公网扫描器，也不是打别人站点的套件。仓库里没有木马，也没有对外攻击载荷。
 
 ---
 
-## 📌 自己装自己用可以。拿去卖、卖课、白标，先找我买[商业许可](./LICENSE-COMMERCIAL.md)。
+## 📌 自己装自己用可以。拿去卖、卖课、白标，先找原作者买[商业许可](./LICENSE-COMMERCIAL.md)。
 
 ## 署名要求
 
-你要用我这个项目的名字、思路、代码或提示词，必须写我的名字，并写明来源仓库：[YuJunZhiXue/dsh-purge](https://github.com/YuJunZhiXue/dsh-purge)。
+你要用这个项目的名字、思路、代码或提示词，必须署名原作者 YuJunZhiXue，并写明来源仓库：[YuJunZhiXue/dsh-purge](https://github.com/YuJunZhiXue/dsh-purge)；取本分支的改动还要标上 [hj01857655/dsh-purge](https://github.com/hj01857655/dsh-purge)。
 
-不署名、藏来源、改头换面当自己的，我会追究。
+不署名、藏来源、改头换面当自己的，原作者会追究。
 
 ---
 
 ## 许可证
 
-这一版开始，正本是我写的 [商业软件许可](./LICENSE)。我保留所有权利。**这不是开源协议，也不是 MIT。**
+正本仍是原作者写的 [商业软件许可](./LICENSE)，本分支不改动授权，作者保留所有权利。**这不是开源协议，也不是 MIT。**
 
 | 你要做的事 | 怎么走 |
 | --- | --- |
 | 已经拿到的包装到自己电脑上用 | 可以，见 [LICENSE](./LICENSE) |
-| 付费卖插件 / 卖课 / 白标 / 给别人当产品 | 先找我买授权，[LICENSE-COMMERCIAL.md](./LICENSE-COMMERCIAL.md) |
-| 换证前那些 Git tag / 旧 tgz | 当时是 MIT，发出去的我收不回来 |
-| 10 月 27 日之后的新版本 | 我只在 [t.me/LLM_PoJia/271](https://t.me/LLM_PoJia/271) 发 |
+| 付费卖插件 / 卖课 / 白标 / 给别人当产品 | 先找原作者买授权，[LICENSE-COMMERCIAL.md](./LICENSE-COMMERCIAL.md) |
+| 换证前那些 Git tag / 旧 tgz | 当时是 MIT，发出去的他收不回来 |
+| 本分支的新版本（1.2.x 起） | GitHub [Releases](https://github.com/hj01857655/dsh-purge/releases)；原仓库频道不再代表本分支 |
 
-写过代码的人，谢谢你们。后面我不再把 GitHub 当开源仓库来更新了。
+谢谢所有写过代码的人。本分支把仓库继续留在 GitHub 上维护，按上面那份许可分发。
 
 ---
 
 ## 违规商用公示
 
-抖音直播账号 **「老张的ai」**（直播间显示 **「老张AI讲堂」**）把我这个仓库当收费货卖：直播间问价、当场收钱，不署名，还自称作者。我人就在场，对方照收。
+> 原作者公告，本分支原样保留。
 
-商业许可不允许把仓库当收费货卖。卖课、卖插件、卖 token、倒卖，要先找我买授权；否则许可当场终止。旧 MIT tag 我收不回来，但冒充我、不署名，我照样追。
+抖音直播账号 **「老张的ai」**（直播间显示 **「老张AI讲堂」**）把原作者这个仓库当收费货卖：直播间问价、当场收钱，不署名，还自称作者。原作者在场，对方照收。
+
+商业许可不允许把仓库当收费货卖。卖课、卖插件、卖 token、倒卖，要先找原作者买授权；否则许可当场终止。旧 MIT tag 他收不回来，但冒充作者、不署名，他照样追。
 
 2026-10-12 直播记录：
 
@@ -156,7 +152,7 @@ Harness 不只是把问题交给模型。它还会在运行时改提示词、审
   <img src="docs/notice/laozhang-live-2.jpg" width="360" alt="老张的ai 直播收钱">
 </p>
 
-对方微信名 **「老张的ai科技」**，直播间观众榜同号。被问到是不是这个仓库的开发者时，自称「老厉害了」；我当场说要投诉。
+对方微信名 **「老张的ai科技」**，直播间观众榜同号。被问到是不是这个仓库的开发者时，自称「老厉害了」；原作者当场说要投诉。
 
 <p align="center">
   <img src="docs/notice/laozhang-wechat-1.jpg" width="420" alt="老张的ai科技 微信自称开发者">
@@ -168,7 +164,7 @@ Harness 不只是把问题交给模型。它还会在运行时改提示词、审
 
 
 
-**免责声明：** 我按商业许可提供这个插件。以前在 GitHub 上用过 MIT，现在改了，而且马上闭源。遵守国家法律法规及所在平台规范。不得用于违法违规用途；后果你自己承担。
+**免责声明：** 本插件按 [LICENSE](./LICENSE) 的商业许可提供（原作者条款，本分支沿用；早期 tag 仍按当时的 MIT 文本）。遵守国家法律法规及所在平台规范。不得用于违法违规用途；后果你自己承担。
 
 **【零容忍严正申明】**：本项目坚决反对并严禁任何形式的违法犯罪行为！本项目开发者绝不支持、不鼓励、不协助任何未授权网络攻击、漏洞利用、数据窃取、非法侵入计算机信息系统或生成违法违禁内容的活动。**任何将本项目用于违法犯罪的行为，均与开发者无关，由行为人依法独立承担全部法律责任。**
 
@@ -203,6 +199,7 @@ Harness 不只是把问题交给模型。它还会在运行时改提示词、审
 最新版只支持 **dsh 0.2**，不要拿它去打 0.1.x。
 
 - **dsh 0.2**（官方桌面 **0.2.0-rc.2 / 0.2.1-rc.2** / 官方 `dsh web`）：用 **1.1.40** 及以上。本页命令装的就是这一档。
+- **DSH 0.2.1-rc.3 及更新的 rc**：不支持。请退回 **0.2.1-rc.2**。
 - **dsh 0.1.7**（含 rc.1 / rc.2）：用 **1.1.39** 及更早 —— 在 [Releases](https://github.com/YuJunZhiXue/dsh-purge/releases) 里选对应标签。
 
 对不上的补丁会显示待应用或跳过，不会乱改文件。
@@ -216,13 +213,13 @@ Harness 不只是把问题交给模型。它还会在运行时改提示词、审
 **Web（官方 `dsh web`）**
 
 ```sh
-dsh plugin --profile web add https://github.com/YuJunZhiXue/dsh-purge/archive/refs/heads/master.tar.gz
+dsh plugin --profile web add https://github.com/hj01857655/dsh-purge/archive/refs/heads/master.tar.gz
 ```
 
 **桌面端（官方 EXE）**
 
 ```sh
-dsh plugin --profile desktop add https://github.com/YuJunZhiXue/dsh-purge/archive/refs/heads/master.tar.gz
+dsh plugin --profile desktop add https://github.com/hj01857655/dsh-purge/archive/refs/heads/master.tar.gz
 ```
 
 当前目录已经是本仓库时，把归档地址换成 `add .`。`dsh` 不在 PATH 时走 [手动安装](#manual)。
@@ -230,7 +227,7 @@ dsh plugin --profile desktop add https://github.com/YuJunZhiXue/dsh-purge/archiv
 [插件市场](https://dsh-plugin.org/plugins/yujunzhixue/dsh-purge) 一键若仍去拉 npm 包名会 404，用上面的 GitHub 归档命令。桌面客户端也可以点按钮（`dsh://` 唤起，下载地址已是 GitHub）：
 
 <p align="center">
-  <a href="dsh://plugin/install?id=dsh-purge&name=dsh-purge&version=1.1.71&repo=YuJunZhiXue%2Fdsh-purge&permissions=%E7%B3%BB%E7%BB%9F%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%B3%A8%E5%85%A5%2C%E6%9C%AC%E6%9C%BA%E8%A1%A5%E4%B8%81%2C%E8%AE%BE%E7%BD%AE%E9%A1%B5&downloadUrl=https%3A%2F%2Fgithub.com%2FYuJunZhiXue%2Fdsh-purge%2Farchive%2Frefs%2Fheads%2Fmaster.tar.gz"><strong>唤起客户端一键安装</strong></a>
+  <a href="dsh://plugin/install?id=dsh-purge&name=dsh-purge&version=1.2.2&repo=hj01857655%2Fdsh-purge&permissions=%E7%B3%BB%E7%BB%9F%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%B3%A8%E5%85%A5%2C%E6%9C%AC%E6%9C%BA%E8%A1%A5%E4%B8%81%2C%E8%AE%BE%E7%BD%AE%E9%A1%B5&downloadUrl=https%3A%2F%2Fgithub.com%2Fhj01857655%2Fdsh-purge%2Farchive%2Frefs%2Fheads%2Fmaster.tar.gz"><strong>唤起客户端一键安装</strong></a>
 </p>
 
 ### 装完都要做这三步
@@ -265,13 +262,13 @@ Web 的控件只动 Web，桌面端的只动桌面应用。不要在一个宿主
 **Web 端（官方 `dsh web`）**
 
 ```sh
-dsh plugin --profile web add https://github.com/YuJunZhiXue/dsh-purge/archive/refs/heads/master.tar.gz
+dsh plugin --profile web add https://github.com/hj01857655/dsh-purge/archive/refs/heads/master.tar.gz
 ```
 
 **桌面端（官方 EXE）**
 
 ```sh
-dsh plugin --profile desktop add https://github.com/YuJunZhiXue/dsh-purge/archive/refs/heads/master.tar.gz
+dsh plugin --profile desktop add https://github.com/hj01857655/dsh-purge/archive/refs/heads/master.tar.gz
 ```
 
 命令结束后，提醒用户：Web 完全退出并重启 `dsh web`；桌面端退出托盘再打开 EXE。各自点会话标题旁的 **dsh-purge**，在「清洗」里点「应用」。然后停止。
@@ -309,10 +306,10 @@ $cands | Select-Object -Unique | Where-Object { $_ -and (Test-Path (Join-Path $_
 **2. 把插件放到 `$DSH_HOME/plugins/dsh-purge`**（目录名必须是 `dsh-purge`，其 `package.json` 里 `"name"` 也必须是 `dsh-purge`）。
 
 ```sh
-git clone https://github.com/YuJunZhiXue/dsh-purge.git "$DSH_HOME/plugins/dsh-purge"
+git clone https://github.com/hj01857655/dsh-purge.git "$DSH_HOME/plugins/dsh-purge"
 ```
 
-没有 git：下载 [master.tar.gz](https://github.com/YuJunZhiXue/dsh-purge/archive/refs/heads/master.tar.gz)，解压后把 `dsh-purge-master` 改名为 `dsh-purge`，整夹放到 `plugins` 下。已有本仓库副本就复制整个目录，不要只拷几个 `.js`。
+没有 git：下载 [master.tar.gz](https://github.com/hj01857655/dsh-purge/archive/refs/heads/master.tar.gz)，解压后把 `dsh-purge-master` 改名为 `dsh-purge`，整夹放到 `plugins` 下。已有本仓库副本就复制整个目录，不要只拷几个 `.js`。
 
 **3. 只改对应 profile 的 `package.json`，先备份。** Web → `$DSH_HOME/profiles/web/package.json`；桌面 → `$DSH_HOME/profiles/desktop/package.json`。**只追加两处**，原有依赖和 bundle 全部留着：
 
@@ -611,7 +608,7 @@ flowchart LR
 4. 嵌套 `@deepseek-ai/dsh/node_modules/@deepseek-ai`
 5. 系统默认 `~/.dsh`
 
-**官方桌面：** 只改当前正在运行的官方桌面安装。点「应用」成功后会自动重启一次。社区桌面端不维护。
+**官方桌面：** 只改当前正在运行的官方桌面安装。点「应用」成功后会自动重启一次。社区桌面端按桌面宿主识别，不单独适配测试。
 
 找不到目标时提示设置 `DSH_BASE`，不改文件。
 
@@ -619,16 +616,16 @@ flowchart LR
 
 ## 更新
 
-**2026 年 10 月 26 日前：** 这一版的说明和包还在我这个仓库 / [Releases](https://github.com/YuJunZhiXue/dsh-purge/releases)。
+**本分支：** 1.2.2 起的说明和包都在 [hj01857655/dsh-purge](https://github.com/hj01857655/dsh-purge) / [Releases](https://github.com/hj01857655/dsh-purge/releases)。
 
-**10 月 27 日起：** GitHub 上我不再发新包。后续版本只以 [t.me/LLM_PoJia/271](https://t.me/LLM_PoJia/271) 为准。频道里没有的，就不是我发的。
+**原仓库：** 原作者 2026 年 10 月 27 日后不再在 GitHub 发新版，[YuJunZhiXue/dsh-purge](https://github.com/YuJunZhiXue/dsh-purge) 停在 v1.1.81。要装延续版就用本分支地址。
 
 ## 说明
 
 - 改动范围是本机 `@deepseek-ai/*` 包里的渲染文案、默认策略和执行逻辑，以及用户目录下的覆盖文件与规则集。
 - 升级后原文对不上会显示跳过，这次应用仍算完成，不会乱改。
 - 不改动非 `@deepseek-ai` 的第三方插件源仓库（启动时的 CMD 无感会**尽力**修补已装的 doctor / market / 梁神 / mnemon，属运行时补丁）。
-- 10 月 26 日前安装还可走 GitHub 归档，不要 npm 包名：`dsh plugin --profile web add https://github.com/YuJunZhiXue/dsh-purge/archive/refs/heads/master.tar.gz`（桌面端把 profile 换成 `desktop`）。当前目录已是本仓库时 `add .`。10 月 27 日之后只认 [频道](https://t.me/LLM_PoJia/271) 里的包。
+- 安装走本分支的 GitHub 归档，不要 npm 包名：`dsh plugin --profile web add https://github.com/hj01857655/dsh-purge/archive/refs/heads/master.tar.gz`（桌面端把 profile 换成 `desktop`）。当前目录已是本仓库时 `add .`。
 
 ---
 

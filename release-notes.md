@@ -10,6 +10,8 @@
 - **#162（指令撞名）**：`/purge`、`/rules`、`/skills`、`/rewind` 改为逐条容错注册 —— 某一条被别的插件占了只丢那一条，并退到备用名（`/purge-cmd`、`/purge-rules`、`/purge-skills`、`/purge-rewind`），不再整块抛异常把四条指令一起带走。
 - **#175（单测）**：收录上游 5 个测试文件（`test/dsh-next`、`ip-utils`、`score-rules`、`settle-policy`、`zip-extract`），`package.json` 补 `npm test` = `node --test`，**23 条全过**。
 - **#176（支持边界）**：README 写清 **DSH 0.2.1-rc.3 及更新的 rc 不支持**，请退回 **0.2.1-rc.2**；对不上的补丁保持待应用或跳过，不乱改文件。
+- **README 作者口径**：删除原作者的裁员/七日征集/停更告白，换成 fork 延续说明（本分支从 1.2.x 起在 GitHub 发版，原仓库停在 v1.1.81）；安装与 clone 地址、`dsh://` 唤起的 `repo`/`downloadUrl`、Stars/License 徽章全部改指 `hj01857655/dsh-purge`。**许可、署名、商业授权、赞助与广告位收益仍归原作者**，相关段落改成第三人称归属，`LICENSE` 文本本身不改。README 顶版号 1.1.71 → **1.2.2**；「社区桌面端不维护」改为「按桌面宿主识别，不单独适配测试」。
+- **package.json 许可字段**：`"license": "MIT"` 与随包的 `LICENSE`（商业许可）矛盾，改为 `"SEE LICENSE IN LICENSE"`；`homepage` / `bugs` 指向本 fork，补 `author: YuJunZhiXue` + `contributors: [hj01857655]` 以保留原作者署名。
 - **不移植的部分**：上游 1.1.74 / 1.1.77 把 `渗透测试 / 红队 / 打点 / 拿站` 纳入公网门禁、正文按窗扫到 256KB —— 本仓库的 `net-scope.js` 是**故意**把「渗透测试」排除在门禁词外（`渗透(?!测试)`，那是用户的正当用途），并按 100KB 上限扫，属于本地策略分歧，不跟。skills / 知识库上游在 1.1.73 删掉了，本仓库继续保留（1.2.1 还扩到 27 个）。
 
 ## English
@@ -20,6 +22,8 @@
 - **#162**: `/purge`, `/rules`, `/skills`, `/rewind` register one at a time — a taken name drops only that command and falls back (`/purge-cmd`, `/purge-rules`, `/purge-skills`, `/purge-rewind`) instead of throwing away all four.
 - **#175**: upstream's 5 test files added under `test/`, `npm test` = `node --test`, **23/23 green**.
 - **#176**: README states **DSH 0.2.1-rc.3 and newer RCs are not supported** — stay on **0.2.1-rc.2**; unmatched patches stay pending or skipped.
+- **README authorship**: the original author's lay-off / seven-day solicitation / closure notice is replaced by a fork-provenance banner (this branch ships from 1.2.x on GitHub; the original repo is frozen at v1.1.81). Archive and clone URLs, the `dsh://` deep link's `repo`/`downloadUrl`, and the Stars/License badges now point at `hj01857655/dsh-purge`. **License, attribution, commercial grants, sponsorship and ad revenue stay with the original author** — those sections are reworded in third person, the `LICENSE` text itself is untouched. Header version 1.1.71 → **1.2.2**; "Community Desktop is not maintained" becomes "detected as desktop hosts, not separately adapted or tested".
+- **package.json license field**: `"license": "MIT"` contradicted the bundled commercial `LICENSE`, so it is now `"SEE LICENSE IN LICENSE"`; `homepage` / `bugs` point at this fork, with `author: YuJunZhiXue` and `contributors: [hj01857655]` kept for attribution.
 - **Not ported**: upstream's public-internet gate wording (渗透测试 / red-team / 打点 / 拿站, 256KB windowed scan) — our `net-scope.js` deliberately excludes 「渗透测试」 from the gate terms and scans with a 100KB cap; that is an intentional local policy split. Skills and the knowledge base, which upstream dropped at 1.1.73, stay in this fork.
 
 ---
