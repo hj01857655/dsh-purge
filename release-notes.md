@@ -1,3 +1,29 @@
+# 1.2.2
+
+> 同步上游 1.1.73–1.1.81 的宿主识别与稳定性修复（上游已停止在 GitHub 发版，本仓库继续维护）。
+
+## 中文
+
+- 版本 **1.2.2**。跟进上游 **1.1.73 → 1.1.81**。
+- **#165 / #174（社区桌面宿主识别）**：`lib/surface.js` 新增 `isCommunityElectronHost`，`lib/desktop.js` 同步扩名 —— **DSH NEXT**、**DS Bot** / **DeepSeek Bot** 按桌面宿主识别（profile `dsh-next` / `ds-bot`、exe 名、安装路径、注册表卸载项、运行中进程、开始菜单快捷方式、mac `.app` 与 `/opt` 路径全链路）；`DSH_SURFACE=web` 不再把这些 Electron 宿主误判成 Web 面，`set DSH_BASE` 误报随之消失。DSH NEXT 带密封 asar，走官方 Harness 那条解包路径；任意 `app.asar` 不会被当成桌面。
+- **#170（zip 目录条目）**：纯 Node 解 zip 时，目录条目（名字带尾斜杠）建目录并跳过，不再写成同名空文件；重复解压不再 `EEXIST`。路径越界校验同时提前到写盘之前。
+- **#162（指令撞名）**：`/purge`、`/rules`、`/skills`、`/rewind` 改为逐条容错注册 —— 某一条被别的插件占了只丢那一条，并退到备用名（`/purge-cmd`、`/purge-rules`、`/purge-skills`、`/purge-rewind`），不再整块抛异常把四条指令一起带走。
+- **#175（单测）**：收录上游 5 个测试文件（`test/dsh-next`、`ip-utils`、`score-rules`、`settle-policy`、`zip-extract`），`package.json` 补 `npm test` = `node --test`，**23 条全过**。
+- **#176（支持边界）**：README 写清 **DSH 0.2.1-rc.3 及更新的 rc 不支持**，请退回 **0.2.1-rc.2**；对不上的补丁保持待应用或跳过，不乱改文件。
+- **不移植的部分**：上游 1.1.74 / 1.1.77 把 `渗透测试 / 红队 / 打点 / 拿站` 纳入公网门禁、正文按窗扫到 256KB —— 本仓库的 `net-scope.js` 是**故意**把「渗透测试」排除在门禁词外（`渗透(?!测试)`，那是用户的正当用途），并按 100KB 上限扫，属于本地策略分歧，不跟。skills / 知识库上游在 1.1.73 删掉了，本仓库继续保留（1.2.1 还扩到 27 个）。
+
+## English
+
+- **1.2.2**. Tracks upstream **1.1.73 → 1.1.81** (upstream stopped shipping on GitHub; this fork continues).
+- **#165 / #174**: `isCommunityElectronHost` in `lib/surface.js` plus matching names in `lib/desktop.js` — **DSH NEXT**, **DS Bot** / **DeepSeek Bot** are now recognized as desktop hosts across profile, exe name, install paths, registry uninstall entries, running processes, shortcuts and mac `/opt` roots. `DSH_SURFACE=web` no longer misreads these Electron hosts as Web, so the `set DSH_BASE` false alarm is gone. Sealed-asar DSH NEXT takes the official unpack path; a random `app.asar` is still not treated as the host.
+- **#170**: the Node zip fallback creates a directory for directory entries instead of an empty file, so re-extracting no longer hits `EEXIST`; path traversal is checked before any write.
+- **#162**: `/purge`, `/rules`, `/skills`, `/rewind` register one at a time — a taken name drops only that command and falls back (`/purge-cmd`, `/purge-rules`, `/purge-skills`, `/purge-rewind`) instead of throwing away all four.
+- **#175**: upstream's 5 test files added under `test/`, `npm test` = `node --test`, **23/23 green**.
+- **#176**: README states **DSH 0.2.1-rc.3 and newer RCs are not supported** — stay on **0.2.1-rc.2**; unmatched patches stay pending or skipped.
+- **Not ported**: upstream's public-internet gate wording (渗透测试 / red-team / 打点 / 拿站, 256KB windowed scan) — our `net-scope.js` deliberately excludes 「渗透测试」 from the gate terms and scans with a 100KB cap; that is an intentional local policy split. Skills and the knowledge base, which upstream dropped at 1.1.73, stay in this fork.
+
+---
+
 # 1.2.1
 
 > 在 1.2.0 基础上补齐技能库覆盖并修正技能文档错误。
